@@ -1,0 +1,50 @@
+seed: 42
+
+model:
+  base: runwayml/stable-diffusion-v1-5
+  revision: null
+  # Set to a specific HF snapshot if you want reproducibility
+
+data:
+  splits_csv: data/processed/openi_splits.csv
+  # PNGs extract flat into data/raw/openi/ (not a NLMCXR_png/ subfolder).
+  images_dir: data/raw/openi
+  caption_col: caption_prompt
+  image_col: image
+  split_col: split
+  train_split: train
+  resolution: 512
+  center_crop: true
+  random_flip: false  # X-rays have handedness (heart on left); do NOT flip
+
+lora:
+  rank: 16
+  alpha: 16
+  dropout: 0.05
+  target_modules: ["to_q", "to_k", "to_v", "to_out.0"]
+
+train:
+  # RTX 3080 (10GB): bs=1 + accum=8 keeps effective batch=8 while staying under VRAM.
+  batch_size: 1
+  gradient_accumulation_steps: 8
+  learning_rate: 1.0e-4
+  lr_scheduler: cosine
+  warmup_steps: 200
+  max_steps: 6000
+  mixed_precision: fp16
+  checkpoint_every: 1000
+  validation_prompts:
+    - "frontal chest x-ray, cardiomegaly, mild pulmonary edema"
+    - "frontal chest x-ray, right pneumothorax"
+    - "frontal chest x-ray, no acute cardiopulmonary abnormality"
+    - "frontal chest x-ray, left lower lobe pneumonia with consolidation"
+
+output:
+  dir: checkpoints/sd_lora_openi
+  log_every: 50
+
+generate:
+  guidance_scale: 6.0
+  num_inference_steps: 30
+  negative_prompt: "blurry, low quality, artifacts, watermark, text, natural photograph, color image"
+  batch_size: 4

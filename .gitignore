@@ -1,0 +1,44 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+.env.local
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Data + model artifacts (kept out of git)
+data/raw/
+data/processed/
+data/kb/
+artifacts/
+checkpoints/
+wandb/
+logs/
+*.tgz
+*.tar.gz
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.gguf
+*.faiss
+
+# Keep small Flagship B deliverables in git (reports, plots, final LoRA)
+!artifacts/reports/
+!artifacts/reports/**
+!artifacts/utility_comparison.png
+!artifacts/memorization_histogram.png
+!artifacts/utility_report.json
+!artifacts/memorization.json
+!artifacts/quality_report.json
+!checkpoints/sd_lora_openi/final/
+!checkpoints/sd_lora_openi/final/unet_lora/
+!checkpoints/sd_lora_openi/final/unet_lora/adapter_config.json
+!checkpoints/sd_lora_openi/final/unet_lora/adapter_model.safetensors
+!checkpoints/sd_lora_openi/final/unet_lora/README.md
+
+# Notebooks
+.ipynb_checkpoints/
+
+.git.bak*

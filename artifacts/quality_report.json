@@ -1,0 +1,23 @@
+{
+  "classifier_filter": {
+    "kept": 339,
+    "dropped": 1461,
+    "threshold": 0.4,
+    "total": 1800
+  },
+  "fid": {
+    "status": "skipped",
+    "reason": "torch-fidelity DataLoader worker crash on this torch/CUDA stack; classifier filter still applied"
+  },
+  "per_pathology_keep_rate": {
+    "atelectasis": 0.025,
+    "cardiomegaly": 0.07,
+    "consolidation": 0.02,
+    "edema": 0.0,
+    "effusion": 0.02,
+    "mass": 0.34,
+    "no_finding": 1.0,
+    "nodule": 0.075,
+    "pneumothorax": 0.145
+  }
+}

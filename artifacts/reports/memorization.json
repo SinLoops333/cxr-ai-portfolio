@@ -1,0 +1,20 @@
+{
+  "n_synth": 1000,
+  "n_train_gallery": 3000,
+  "synth_top1_stats": {
+    "mean": 0.9501953125,
+    "median": 0.95166015625,
+    "p95": 0.96826171875,
+    "p99": 0.9716796875,
+    "max": 0.97607421875
+  },
+  "holdout_top1_stats": {
+    "mean": 0.98193359375,
+    "median": 0.98486328125,
+    "p95": 0.99169921875,
+    "p99": 0.99267578125,
+    "max": 0.994140625
+  },
+  "delta_mean": -0.03173828125,
+  "note": "Positive delta_mean indicates synthetic images are closer to training data than real holdout images are \u2014 a memorization warning sign."
+}

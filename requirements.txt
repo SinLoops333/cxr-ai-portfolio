@@ -1,0 +1,54 @@
+# Core
+torch>=2.2,<3.0
+torchvision>=0.17
+numpy>=1.26
+pandas>=2.1
+Pillow>=10.0
+tqdm>=4.66
+pyyaml>=6.0
+requests>=2.31
+
+# HF stack
+transformers>=4.44
+diffusers>=0.30
+peft>=0.11
+accelerate>=0.33
+safetensors>=0.4
+datasets>=2.20
+huggingface_hub>=0.24
+sentencepiece>=0.2.0
+bitsandbytes>=0.43; platform_system == "Linux"
+
+# Medical / CV
+torchxrayvision>=1.2
+scikit-image>=0.22
+scikit-learn>=1.4
+opencv-python-headless>=4.9
+
+# RAG / embeddings
+faiss-cpu>=1.8
+sentence-transformers>=3.0
+
+# Metrics
+torchmetrics>=1.4
+torch-fidelity>=0.3.0
+
+# Backend / frontend
+fastapi>=0.111
+uvicorn[standard]>=0.30
+pydantic>=2.7
+streamlit>=1.36
+gradio>=4.36
+python-multipart>=0.0.9
+
+# Ops
+wandb>=0.17
+
+# Viz
+matplotlib>=3.7
+seaborn>=0.13
+
+# Dev
+pytest>=8.2
+ruff>=0.5
+setuptools>=69,<81

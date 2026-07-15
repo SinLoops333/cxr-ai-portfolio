@@ -1,0 +1,56 @@
+seed: 42
+
+classifier:
+  # Zero-config default: use torchxrayvision's pretrained DenseNet on all 18 pathologies.
+  # Set 'finetune: true' to warm-start from these weights and fine-tune on NIH14.
+  weights: densenet121-res224-all
+  finetune: false
+  device: auto  # 'cuda' | 'cpu' | 'auto'
+  # Labels exposed to the rest of the pipeline (must be a subset of torchxrayvision's set):
+  labels:
+    - Atelectasis
+    - Cardiomegaly
+    - Consolidation
+    - Edema
+    - Effusion
+    - Emphysema
+    - Fibrosis
+    - Hernia
+    - Infiltration
+    - Mass
+    - Nodule
+    - Pleural_Thickening
+    - Pneumonia
+    - Pneumothorax
+  # Probability threshold above which we consider a finding "asserted by the image".
+  assertion_threshold: 0.5
+
+rag:
+  corpus_path: data/kb/corpus.jsonl
+  index_path: data/kb/faiss.index
+  meta_path: data/kb/meta.jsonl
+  embedder: sentence-transformers/all-MiniLM-L6-v2  # swap for MedCPT for better recall
+  top_k: 5
+  # Chunking (naive char-window; good enough for abstracts):
+  chunk_chars: 800
+  chunk_overlap: 100
+
+vlm:
+  model: google/medgemma-1.5-4b-it
+  load_in_4bit: true
+  max_new_tokens: 384
+  temperature: 0.2
+  # If the VLM can't be loaded (no HF token or no GPU), the pipeline falls back to a
+  # deterministic classifier-templated report so the demo still runs end-to-end.
+
+verifier:
+  # A claim is 'supported' if (a) it aligns with a classifier prob above this threshold,
+  # or (b) at least this many retrieved passages contain a keyword match.
+  classifier_support_threshold: 0.5
+  min_kb_hits: 1
+  hedge_unsupported: true
+
+eval:
+  test_split_csv: data/processed/openi_splits.csv
+  split_value: test
+  max_samples: 100
